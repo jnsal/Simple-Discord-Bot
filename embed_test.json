@@ -2,41 +2,34 @@
   "content": null,
   "embeds": [
     {
-      "title": "ATARASHII GAKKO! – OTONABLUE / THE FIRST TAKE :notes: **__NOW PLAYING__** :notes:",
-      "description": "```\n2° - ATARASHII GAKKO! – OTONABLUE / THE FIRST TAKE\n\n3° - ATARASHII GAKKO! – OTONABLUE / THE FIRST TAKE\n\n4° - ATARASHII GAKKO! – OTONABLUE / THE FIRST TAKE\n\n5° - ATARASHII GAKKO! – OTONABLUE / THE FIRST TAKE\n```",
-      "url": "https://www.youtube.com/watch?v=9MNPt-zlz-8",
-      "color": 11403519,
-      "footer": {
-        "text": "ATARASHII GAKKO! – OTONABLUE / THE FIRST TAKE ...",
-        "icon_url": "https://i.ytimg.com/vi/9MNPt-zlz-8/maxresdefault.jpg"
-      },
+      "title": "Boku no Pico",
+      "description": "**Synopsis:**\nUpbeat and effeminate Pico is working at his grandfather\"s coffee shop, Café Bebe, for the summer. Tamotsu is a white-collar worker looking for an escape from the mundanity of his everyday life. When they meet at the café, sparks of love and lust quickly draw the two together. Conventional notions of age, gender, and sexuality are broken down as the pair seeks carnal gratification in one another\"s company. But do the pleasures of flesh equate to a connection between hearts?\n\n[Written by MAL Rewrite]",
+      "color": null,
+      "fields": [
+        {
+          "name": "Genres",
+          "value": "asdfasdfasdf\nasd\nf\nasd\nf\nasd",
+          "inline": true
+        },
+        {
+          "name": "Rating",
+          "value": "Mean: 4.23",
+          "inline": true
+        },
+        {
+          "name": "Rank",
+          "value": "N/A",
+          "inline": true
+        }
+      ],
       "image": {
-        "url": "https://i.ytimg.com/vi/9MNPt-zlz-8/maxresdefault.jpg "
+        "url": "https://api-cdn.myanimelist.net/images/anime/12/39497l.jpg"
       },
       "thumbnail": {
-        "url": "https://i.ytimg.com/vi/9MNPt-zlz-8/maxresdefault.jpg"
-      }
-    },
-    {
-      "url": "https://www.youtube.com/watch?v=9MNPt-zlz-8",
-      "image": {
-      "url": "https://i.ytimg.com/vi/9MNPt-zlz-8/maxresdefault.jpg"
-      }
-    },
-    {
-      "url": "https://www.youtube.com/watch?v=9MNPt-zlz-8",
-      "image": {
-      "url": "https://i.ytimg.com/vi/9MNPt-zlz-8/maxresdefault.jpg"
-      }
-    },
-    {
-      "url": "https://www.youtube.com/watch?v=9MNPt-zlz-8",
-      "image": {
-      "url": "https://i.ytimg.com/vi/9MNPt-zlz-8/maxresdefault.jpg"
+        "url": "https://api-cdn.myanimelist.net/images/anime/12/39497.jpg"
       }
     }
   ],
   "attachments": [],
-  "thread_name": "asdfkjal;sd",
   "flags": 4096
 }
