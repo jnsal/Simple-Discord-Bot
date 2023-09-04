@@ -47,9 +47,5 @@ class roleplay_cog(commands.Cog):
         
         await ctx.send(embed=embed)
 
-
-
-
-
 async def setup(bot):
     await bot.add_cog(roleplay_cog(bot))

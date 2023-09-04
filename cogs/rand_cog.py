@@ -78,7 +78,6 @@ class rand_cog(commands.Cog):
                 await ctx.send(embed=getRandomAnime(self.mal_key))
             case 'image':
                 await ctx.send(file=discord.File(self.getRandomImage()))
-                return
 
     
     @commands.command(name="img")
@@ -93,9 +92,6 @@ class rand_cog(commands.Cog):
         
 
         await ctx.send(file=discord.File(imgs[randint(0, len(imgs)-1)]))
-
-
-
 
 async def setup(bot):
     await bot.add_cog(rand_cog(bot))

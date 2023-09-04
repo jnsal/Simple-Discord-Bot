@@ -5,7 +5,6 @@ from random import randint
 def get_random_giphy(api_key, tag='Waifu', rating='r'):
     path = 'https://api.giphy.com/v1/gifs/random?api_key='
 
-    #giphy_key = os.getenv('GIPHY_KEY')
     tag = "Waifu"
     rating = "r"
     rqs = path + api_key + '&tag=' + tag + '&rating=' + rating

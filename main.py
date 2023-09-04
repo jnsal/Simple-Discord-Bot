@@ -4,9 +4,10 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 
-@commands.command
-async def foo(ctx):
-    await ctx.send("bar")
+# To use the pycord(to record the voice), load_extension is not coroutine
+# pip install git+https://github.com/Pycord-Development/pycord
+# to import py-cord with Cogs
+# Using pycord for the voice commands test
 
 intents = discord.Intents.all()
 intents.message_content = True
@@ -20,13 +21,6 @@ async def on_ready():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             await bot.load_extension(f'cogs.{filename[:-3]}')
-
+            
 load_dotenv()
-
-x = []
-for y in bot.commands:
-    if y.cog and y.cog.qualified_name == 'Test':
-        x.append(y.name)
-print(x)
-
 bot.run(os.getenv('DISCORD_TOKEN'))

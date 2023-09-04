@@ -31,7 +31,7 @@ class music_cog(commands.Cog):
     def search_yt(self, item):
         with YoutubeDL(self.YDL_OPTIONS) as ydl:
             try:
-                info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
+                info = ydl.extract_info(item, download=False)
             except Exception:
                 return False
         self.music_length = int(info['duration'])
@@ -57,12 +57,39 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
 
+    def get_emoji(self, n):
+        match n:
+            case 0:
+                return '0️⃣'
+            case 1:
+                return '1️⃣'
+            case 2:
+                return '2️⃣'
+            case 3:
+                return '3️⃣'
+            case 4:
+                return '4️⃣'
+            case 5:
+                return '5️⃣'
+        return 'nil'
+            
+    def add_music(self, msc):
+        embed = discord.Embed(title="Musica adicionada a fila",
+                            url=self.music_queue[len(self.music_queue)-1][0]['webpage_url'],
+                            description=self.music_queue[len(self.music_queue)-1][0]['title'],
+                            color=discord.Color.purple())
+
+        embed.set_thumbnail(url=self.music_queue[len(self.music_queue)-1][0]['thumbnail'])
+        embed.set_image(url=self.music_queue[len(self.music_queue)-1][0]['thumbnail'])
+
     @tasks.loop(seconds=1)
     async def update_player(self):
         if self.player_id == -1:
             print('queue ended!')
             return
         if len(self.music_queue) < 1:
+            await self.player_id.delete() # Delete the player message when queue ends
+            self.player_id = -1
             return
         
         timeline = [":heavy_minus_sign:"]*14
@@ -76,7 +103,7 @@ class music_cog(commands.Cog):
             status = ":pause_button:"
         elif not self.is_playing:
             status = ":stop_button:"
-        elif timer > len(timeline):
+        elif timer >= len(timeline):
             status = ":next_track:"
         else:
             status = ":arrow_forward:"
@@ -128,20 +155,21 @@ class music_cog(commands.Cog):
         query = " ".join(args)
         voice_channel = ctx.author.voice.channel
 
-        if voice_channel is None:
+        if voice_channel is None: 
             await ctx.send("O carai, tem que entrar no chamada!")
         elif self.is_paused:
             self.vc.resume()
-        else:
+        else: # If already on channel, download the music
             msc = get_video(os.getenv("YOUTUBE_KEY"), query)
-            if type(msc) == type(True):
+            if type(msc[0]) == type(True):
                 await ctx.send("Não foi possivel encontrar a música")
                 return
             else:
-                self.music_queue.append([msc, voice_channel])
+                self.music_queue.append([msc[0], voice_channel])
                 if self.is_playing == False:
                     await self.play_music(ctx)
 
+        # Set the player embed thing
         volume = [':black_small_square:']*8
         for i in range(0, int(self.player_volume / 12.5)):
             volume[i]=':white_small_square:'
@@ -155,6 +183,7 @@ class music_cog(commands.Cog):
             
             self.player_id = await ctx.send(embed=embed)
             self.update_player.start()
+            await ctx.message.delete()
         else:
             embed = discord.Embed(title="Musica adicionada a fila",
                                 url=self.music_queue[len(self.music_queue)-1][0]['webpage_url'],
@@ -164,9 +193,65 @@ class music_cog(commands.Cog):
             embed.set_thumbnail(url=self.music_queue[len(self.music_queue)-1][0]['thumbnail'])
             embed.set_image(url=self.music_queue[len(self.music_queue)-1][0]['thumbnail'])
 
-            await ctx.message.delete()
-            await ctx.send(embed=embed, delete_after= 15.0)
-            #await self.update_player()
+            msg = await ctx.send(embed=embed, delete_after= 5.0)
+            await msg.add_reaction('❌')
+            await msg.add_reaction('⏏️')
+
+            try:
+                reaction, user = await self.bot.wait_for('reaction_add', timeout = 5.0)
+            except:
+                await ctx.message.delete()
+                return
+            
+            await msg.delete()
+            if str(reaction.emoji) == '❌':
+                self.music_queue.pop(0)
+                await ctx.message.delete()
+            elif str(reaction.emoji) == '⏏️':
+                self.music_queue.pop(0)
+                if len(msc) == 1:
+                    embed = discord.Embed(title="NÃO ENCONTRADO", description=f"Não foi encontrado musicas com o prompt: {''.join(args)}")
+                    #TODO: Set a image or gif to errors
+                    return
+                    
+                msg = []
+                embed = ""
+                for i in  range(1, len(msc)-1):
+                    embed = discord.Embed(title=f"**[{i}]** - __{msc[i]['title']}__",
+                                          url=msc[i]['webpage_url'], color=discord.Color.purple())
+                    embed.set_thumbnail(url=msc[i]['thumbnail'])
+                    msg.append(await ctx.send(embed=embed, delete_after=30.0))
+                embed = discord.Embed(title="Selecione qual musica deseja adicionar na playlist!", description="Reaja com o emoji correspondente a musica.", color=discord.Color.purple())
+                msg.append(await ctx.send(embed=embed, delete_after=30.0))
+                
+                for i in range(0, len(msg)-1):
+                    await msg[len(msg)-1].add_reaction(self.get_emoji(i+1))
+
+                await msg[len(msg)-1].add_reaction('❌')
+
+                try:
+                    reaction, user = await self.bot.wait_for('reaction_add', timeout = 20.0)
+                except:
+                    await ctx.message.delete()
+                    return
+                
+                match str(reaction.emoji):
+                    case '1️⃣':
+                        self.music_queue.append([msc[1], voice_channel])
+                    case '2️⃣':
+                        self.music_queue.append([msc[2], voice_channel])
+                    case '3️⃣':
+                        self.music_queue.append([msc[3], voice_channel])
+                    case '4️⃣':
+                        self.music_queue.append([msc[4], voice_channel])
+                    case '5️⃣':
+                        self.music_queue.append([msc[5], voice_channel])
+                        
+                for i in range(0, len(msg)):
+                    await msg[i].delete()
+                await ctx.message.delete()
+            else:
+                await ctx.message.delete()
         
     
     @commands.command(name="queue", aliases=["fila", "musgas"], help="lista das musgas")
@@ -220,13 +305,12 @@ class music_cog(commands.Cog):
             self.is_playing = True
             self.is_paused = False
             self.vc.resume()
-            print(f"is_playing: {self.is_playing}, is_pause: {self.is_paused}")
         else:
             await ctx.send("Ja ta tocando parceiro")
         await ctx.message.delete()
 
     @commands.command(name="skip", help="pula a musga")
-    async def skip(self, ctx, *args):
+    async def skip(self, ctx):
         if self.vc != None and self.vc:
             self.vc.stop()
             
@@ -265,6 +349,9 @@ class music_cog(commands.Cog):
         self.player_volume = vol
         self.music_source.volume = float(vol / 100)
 
+        # update 0.0.1: fix to when another music is playing add de actual volume to config
+        self.FFMPEG_OPTIONS['options']= f'-vn -filter:a "volume={float(vol / 100)}"'
+
         await ctx.message.delete()
         
 
@@ -287,9 +374,6 @@ class music_cog(commands.Cog):
             embed = discord.Embed(title="test-edited")
             await self.player_id.edit(embed=embed)
         
-
-
-
         
 async def setup(bot):
     await bot.add_cog(music_cog(bot))

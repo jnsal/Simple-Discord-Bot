@@ -14,7 +14,7 @@ class giphy_cog(commands.Cog):
         self.api_key = os.getenv("GIPHY_KEY")
 
 
-    @commands.command(name="giphy")
+    @commands.command(name="giphy", aliases=['gif'])
     async def giphy(self, ctx, *args):
         if len(args) < 1:
             args = "Dominatrix"

@@ -2,6 +2,7 @@ import os
 
 from discord.ext import commands
 from discord import Embed
+from discord import Color
 
 from utils.mal_rqs import *
 from cogs.rand_cog import getRandomAnime
@@ -20,8 +21,7 @@ class mal_cog(commands.Cog):
             return
 
         info = get_anime(self.api_key, " ".join(args))
-        
-        embed = Embed(title=info['title'],description=info['synopsis'])
+        embed = Embed(title=info['title'],description=info['synopsis'], color=Color.purple())
         embed.set_thumbnail(url=info['main_picture']['medium'])
         embed.url = f"https://myanimelist.net/anime/{info['id']}"
         
