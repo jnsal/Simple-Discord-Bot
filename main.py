@@ -23,4 +23,4 @@ async def on_ready():
             await bot.load_extension(f'cogs.{filename[:-3]}')
             
 load_dotenv()
-bot.run(os.getenv('DISCORD_TOKEN'))
+bot.run(str(os.getenv('DISCORD_TOKEN')))

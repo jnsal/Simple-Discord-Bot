@@ -1,0 +1,80 @@
+{
+    "Snooker4": {
+        "Type": 5,
+        "Players": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+        ],
+        "Active": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+        ],
+        "History": [],
+        "Match": [],
+        "State": 0
+    },
+    "Snooker3": {
+        "Type": 5,
+        "Players": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+        ],
+        "Active": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+        ],
+        "History": [],
+        "Match": [],
+        "State": 0
+    },
+    "Snooker2": {
+        "Type": 5,
+        "Players": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h"
+        ],
+        "Active": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h"
+        ],
+        "History": [],
+        "Match": [],
+        "State": 0
+    }
+}

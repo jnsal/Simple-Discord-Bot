@@ -1,6 +1,8 @@
+from emoji import Emoji
+
+# .torneio Snooker md3
+
 if __name__ == '__main__':
-    try:
-        a = '10'
-        b = int(a)
-    except:
-        print("could not do it")
+    n = 1
+    print()
+    exit()

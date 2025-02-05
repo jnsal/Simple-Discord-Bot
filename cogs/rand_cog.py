@@ -1,6 +1,7 @@
 import discord
 import os
 from random import randint
+import json
 
 from discord import Embed
 from discord.ext import commands
@@ -50,9 +51,9 @@ class rand_cog(commands.Cog):
             'Onee san', 'BL', 'GL','anime', 
             'CHAD'
         ]
-        self.path = os.getenv("IMAGE_PATH")
-        self.giphy_key = os.getenv("GIPHY_KEY")
-        self.mal_key = os.getenv("MAL_KEY")
+        self.path = str(os.getenv("IMAGE_PATH"))
+        self.giphy_key = str(os.getenv("GIPHY_KEY"))
+        self.mal_key = str(os.getenv("MAL_KEY"))
     
     def getRandomImage(self):
         imgs = []
@@ -89,9 +90,44 @@ class rand_cog(commands.Cog):
             if file_name.endswith(".png") or file_name.endswith(".jpg"):
                 imgs.append(self.path + file_name)
 
-        
-
         await ctx.send(file=discord.File(imgs[randint(0, len(imgs)-1)]))
+
+
+    @commands.command(name="quote")
+    async def quote(self, ctx, *args):
+        if len(args) < 1:
+            # TODO: If was not provided arguments send a random quote
+            return
+        path = str(os.getenv('DATA_PATH')) + 'quote.json'
+        value = ' '.join(args)
+        if value.find('set-alias') != -1:
+            return
+        if value.find('~') == -1:
+            return
+        value = value.split('~')
+        found = False
+        with open(path, 'r') as file:
+            data = json.load(file)
+            for name in data:
+                if str(name).upper() == value[1].upper():
+                    found = True
+                    break
+                if not found:
+                    for alias in name['Alias']:
+                        if str(alias).upper() == value[1].upper():
+                            found = True
+                            break
+                if found:
+                    break
+
+        data = { "name": value[1],
+                "quotes": [
+                    value[0]
+                    ]
+                }
+        print(data)
+        with open(path, 'w') as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
 
 async def setup(bot):
     await bot.add_cog(rand_cog(bot))

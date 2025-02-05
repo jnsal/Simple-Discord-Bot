@@ -1,0 +1,72 @@
+{
+    "Snooker": {
+        "State": 1,
+        "Type": 5,
+        "Players": [
+            "alonetheking",
+            "test",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h"
+        ],
+        "Active": [
+            "alonetheking",
+            "test"
+        ],
+        "History": [
+            [
+                [
+                    "alonetheking",
+                    "h",
+                    3,
+                    0
+                ],
+                [
+                    "test",
+                    "g",
+                    2,
+                    0
+                ],
+                [
+                    "c",
+                    "f",
+                    2,
+                    0
+                ],
+                [
+                    "d",
+                    "e",
+                    2,
+                    0
+                ]
+            ],
+            [
+                [
+                    "alonetheking",
+                    "d",
+                    3,
+                    0
+                ],
+                [
+                    "test",
+                    "c",
+                    3,
+                    0
+                ]
+            ]
+        ],
+        "Match": [
+            [
+                "alonetheking",
+                "test",
+                0,
+                0
+            ]
+        ],
+        "Prize": "Pika",
+        "Description": "Test \n TEST"
+    }
+}

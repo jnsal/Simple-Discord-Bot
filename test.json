@@ -1,0 +1,28 @@
+{
+    "Snooker": {
+        "State": 0,
+        "Type": 5,
+        "Players": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h"
+        ],
+        "Active": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h"
+        ],
+        "History": [],
+        "Match": []
+    }
+}
